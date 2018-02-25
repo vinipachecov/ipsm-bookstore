@@ -1,0 +1,10 @@
+{
+  "invalid-email": "Este email parece ser inválido. Verifique se seu email foi inserido corretamente.",
+  "invalid-credentials": "Credenciais inválidas. Verifique se seus dados foram inseridos corretamente.",
+  "reset-password-user-not-found": "Não existe nenhuma conta para o endereço de e-mail solicitado. Verifique se seu email foi inserido corretamente ou cria uma conta.",
+  "reset-password-other-error": "Favor inserir dados válidos.",  
+  "internet-connection-failure": "Não foi possível estabelecer conexão, verifique sua conexão com a internet.", 
+  "register-user-error": "Favor inserir dados válidos.",
+  "register-user-password-dont-match": "Suas senhas não estão iguais, tente novamente.",
+  "register-user-password-empty": "Sua senha está vazia, digite uma senha segura."  
+}
