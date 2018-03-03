@@ -5,6 +5,18 @@ import LoginWithEmailScreen from '../screens/LoginStack/LoginWithEmailScreen';
 import ForgotPassword from '../screens/LoginStack/ForgotPassword';
 import CreateAccountWithEmail from '../screens/LoginStack/CreateAccountWithEmail';
 
+import HomeScreen from '../screens/HomeStack/HomeScreen';
+import BookList from '../screens/HomeStack/BookList';
+
+const HomeStack = StackNavigator({
+    home: { screen: HomeScreen },
+    bookList: { screen: BookList }
+  },
+  {
+     headerMode: 'none'   
+  }
+);
+
 const LoginStack = StackNavigator(
   {    
     loginWithEmail: { 
@@ -16,8 +28,7 @@ const LoginStack = StackNavigator(
       path: 'forgotPassword'
     },
     createAccount: {
-      screen: CreateAccountWithEmail,
-      path: 'createAccount'
+      screen: CreateAccountWithEmail      
     }
   },
   {
@@ -29,7 +40,8 @@ const LoginStack = StackNavigator(
 
 const AppNavigator = StackNavigator(
   {
-    loginStack: { screen: LoginStack },        
+    loginStack: { screen: LoginStack },   
+    homeStack: { screen: HomeStack }     
   },
   {
     initialRouteName: 'loginStack',

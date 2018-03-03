@@ -22,7 +22,8 @@ export const SignInUser = ({ email, password }) => {
 
       console.log('terminou com user  =', user);
       
-      signInUserSucess(dispatch);         
+      signInUserSucess(dispatch, user);         
+      dispatch(NavigationActions.navigate({ routeName: 'home' }));     
     } catch (error) {      
       console.log(error.code);
       console.log(error);

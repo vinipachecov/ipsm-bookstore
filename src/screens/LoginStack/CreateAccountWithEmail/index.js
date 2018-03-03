@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import firebase from 'firebase';
 
 // Components
 import { Container } from '../../../components/common/Container/index';
@@ -57,12 +56,7 @@ class CreateAccountWithEmail extends Component {
   }
 
   render() {           
-    // TEMPORÁRIO ATÉ SURGIR A TELA DE LOGIN
-    if (firebase.auth().currentUser !== null) {
-      firebase.auth().signOut();        
-      console.log('tela de login');
-    }
-
+    // TEMPORÁRIO ATÉ SURGIR A TELA DE LOGIN    
     return (      
       <Container>     
         <KeyboardAwareScrollView 

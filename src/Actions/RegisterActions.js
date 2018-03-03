@@ -35,7 +35,7 @@ export const registerUser = (email, password, passwordConfirm) => {
       dispatch({ type: FORM_SUBMIT });      
       try {              
         const user = await 
-          firebase.auth().createUserWithEmailAndPassword(email, password);          
+        firebase.auth().createUserWithEmailAndPassword(email, password);          
         console.log(user);
         
         registerSuccess(dispatch, user);      

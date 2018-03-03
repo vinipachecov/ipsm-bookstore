@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, Button, Text } from 'react-native';
+import { View, KeyboardAvoidingView, Button, Text, TextInput } from 'react-native';
 import { TextField } from '../../../components/common/TextField';
-import { PasswordTextField } from '../../../components/common/PasswordTextField';
 
 
 import { navigationBack, navigateToScreen } from '../../../Actions/Navigation';
@@ -57,8 +56,11 @@ class LoginWithEmailScreen extends Component {
     }
   }
 
-  render() {                
-    console.log(this);  
+  navigateToRegisterUser = () => {
+    this.props.navigateToScreen('createAccount');
+  }
+
+  render() {                    
     return (    
       <Container>                 
          <KeyboardAvoidingView behavior="padding">
@@ -82,11 +84,13 @@ class LoginWithEmailScreen extends Component {
             keyboardType={'email-address'}            
           />     
 
-          <PasswordTextField 
-             value={this.state.password}
-             onChangeText={this.onPaswordChange}
-             label={'SENHA'}                         
-          />   
+            
+          <TextField 
+            value={this.state.password}
+            onChangeText={this.onPaswordChange}
+            label={'SENHA'}                         
+            secureTextEntry
+          />     
           </View>            
          
             { this.renderSpinner(this.props.loading) }
@@ -99,8 +103,13 @@ class LoginWithEmailScreen extends Component {
               onPress={this.SignIn}                 
             />   
 
-            <Text style={{fontSize: 25, color: 'gray', alignSelf: 'center', marginTop: 30 }}>Não possui Conta? 
-              <Text style={{fontSize: 25, fontWeight: '800', color: 'gray', }}> Criar Conta </Text>
+            <Text style={{fontSize: 25, color: 'gray', alignSelf: 'center', marginTop: 30 }}>Não possui Conta?             
+              <Text
+               style={{fontSize: 25, fontWeight: '800', color: 'gray', }}
+               onPress={this.navigateToRegisterUser}
+              >
+              Criar Conta 
+              </Text>
              </Text>
             
             
