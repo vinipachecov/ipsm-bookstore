@@ -43,6 +43,10 @@ class LoginWithEmailScreen extends Component {
     this.props.navigateToScreen('forgotPassword');
   }
 
+  navigateToRegisterUser = () => {
+    this.props.navigateToScreen('createAccount');
+  }
+
   renderSpinner = (loading) => {
     if (loading) {
       return <Spinner />;    
@@ -56,16 +60,19 @@ class LoginWithEmailScreen extends Component {
     }
   }
 
-  navigateToRegisterUser = () => {
-    this.props.navigateToScreen('createAccount');
-  }
-
   render() {                    
     return (    
       <Container>                 
          <KeyboardAvoidingView behavior="padding">
          <NavBar 
-          backgroundColor='white'          
+          backgroundColor='white'     
+          headerLeft={
+              <IconText 
+                iconName={'arrow-left'} 
+                type={'feather'}               
+                onPress={this.props.navigationBack}                     
+              />
+          }     
           headerRight={
               <IconText 
                 text='Esqueceu sua senha?'       

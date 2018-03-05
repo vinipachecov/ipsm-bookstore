@@ -5,7 +5,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 
-import firebaseConfig from './configs/firebase';
+import configs from './configs/firebase';
 
 import reducers from './reducers';
 import AppNavigation, { reduxMiddleware } from './Navigation';
@@ -27,12 +27,12 @@ class App extends React.Component {
   componentWillMount() {
      // Initialize Firebase
       const config = {
-      apiKey: firebaseConfig.apiKey,
-      authDomain: firebaseConfig.authDomain,
-      databaseURL: firebaseConfig.databaseURL,
-      projectId: firebaseConfig.projectId,
-      storageBucket: firebaseConfig.storageBucket,
-      messagingSenderId: firebaseConfig.messagingSenderId
+      apiKey: configs.apiKey,
+      authDomain: configs.authDomain,
+      databaseURL: configs.databaseURL,
+      projectId: configs.projectId,
+      storageBucket: configs.storageBucket,
+      messagingSenderId: configs.messagingSenderId
     };
     firebase.initializeApp(config);
   }

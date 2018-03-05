@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import LoginWithEmailScreen from '../screens/LoginStack/LoginWithEmailScreen';
 import ForgotPassword from '../screens/LoginStack/ForgotPassword';
 import CreateAccountWithEmail from '../screens/LoginStack/CreateAccountWithEmail';
+import LoginOptions from '../screens/LoginStack/LoginOptions';
 
 import HomeScreen from '../screens/HomeStack/HomeScreen';
 import BookList from '../screens/HomeStack/BookList';
@@ -29,10 +30,13 @@ const LoginStack = StackNavigator(
     },
     createAccount: {
       screen: CreateAccountWithEmail      
+    },
+    loginOptions: {
+      screen: LoginOptions
     }
-  },
+  },  
   {
-     initialRouteName: 'loginWithEmail', 
+     initialRouteName: 'loginOptions', 
      headerMode: 'none'   
   }
 );
@@ -44,7 +48,7 @@ const AppNavigator = StackNavigator(
     homeStack: { screen: HomeStack }     
   },
   {
-    initialRouteName: 'loginStack',
+    initialRouteName: 'homeStack',
     headerMode: 'none'
   }
 );

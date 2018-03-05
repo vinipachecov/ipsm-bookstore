@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container } from '../../../components/common/Container';
 import { NavBar } from '../../../components/common/NavBar';
 import { Button } from 'react-native-elements';
 
-import { navigateToScreen } from '../../../Actions/Navigation';
+import styles from './styles';
 
+import { navigateToScreen, navigationBack } from '../../../Actions/Navigation';
+import { IconText } from '../../../components/common/IconText';
+import Title from '../../../components/common/Title/Title';
 
 class HomeScreen extends Component {
-  static propTypes = {
-    prop: PropTypes
-  };
 
   goToBookList = () => {
     this.props.navigateToScreen('bookList');
@@ -20,24 +19,38 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <Container>
-        <NavBar />        
-        <Button 
-          color={'transparent'}
-          title={'Lista de dados'}  
-        />
+      <Container>        
+      <NavBar 
+          backgroundColor='white'     
+          headerLeft={
+              <IconText 
+                iconName={'arrow-left'} 
+                type={'feather'}               
+                onPress={this.props.navigationBack}                     
+              />
+          }                
+      />         
+      <Title 
+          text={'Bem vindo de Volta!'}
+      />          
+      <Button           
+        title={'Lista de Livros'}  
+        buttonStyle={styles.booklistButton}
+        onPress={this.goToBookList}
 
+      />
       </Container>      
-    )
-  };
-};
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   
-})
+});
 
 const mapDispatchToProps = {
-  navigateToScreen  
+  navigateToScreen,
+  navigationBack  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
