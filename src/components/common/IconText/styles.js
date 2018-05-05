@@ -14,6 +14,7 @@ const styles = EStyleSheet.create({
     marginLeft: 5,
     fontWeight: 'bold',
     fontSize: 16,     
+    color: '#000'
   }
 });
 

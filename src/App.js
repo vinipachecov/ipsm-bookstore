@@ -10,14 +10,9 @@ import configs from './configs/firebase';
 import reducers from './reducers';
 import AppNavigation, { reduxMiddleware } from './Navigation';
 
-EStyleSheet.build({  
-  $lightbackground: '#F5FCFF',
-  $fullblack: '#000',
-  $primaryBlue: '#4F6D7A',
+EStyleSheet.build({    
   $white: '#fff',
-  $border: '#e2e2e2',
-  $inputText: '#797979',
-  $lightGray: '#F0F0F0',
+  $border: '#e2e2e2',  
   // $outline: 1
 });
 

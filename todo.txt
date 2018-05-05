@@ -1,0 +1,5 @@
+TO DO LIST
+
+
+- CONVERTER XLS EM JSON (FAZER POR CLOUD FUNCTION (NODEJS))?
+https://www.npmjs.com/package/xl-json

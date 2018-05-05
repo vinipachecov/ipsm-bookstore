@@ -48,7 +48,7 @@ const AppNavigator = StackNavigator(
     homeStack: { screen: HomeStack }     
   },
   {
-    initialRouteName: 'homeStack',
+    initialRouteName: 'loginStack',
     headerMode: 'none'
   }
 );

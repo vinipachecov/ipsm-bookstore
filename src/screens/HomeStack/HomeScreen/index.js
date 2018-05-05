@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Container } from '../../../components/common/Container';
 import { NavBar } from '../../../components/common/NavBar';
@@ -10,6 +10,7 @@ import styles from './styles';
 import { navigateToScreen, navigationBack } from '../../../Actions/Navigation';
 import { IconText } from '../../../components/common/IconText';
 import Title from '../../../components/common/Title/Title';
+
 
 class HomeScreen extends Component {
 
@@ -30,6 +31,8 @@ class HomeScreen extends Component {
               />
           }                
       />         
+
+      
       <Title 
           text={'Bem vindo de Volta!'}
       />          

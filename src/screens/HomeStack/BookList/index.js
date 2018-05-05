@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import Container from '../../../components/common/Container/Container';
 import NavBar from '../../../components/common/NavBar/NavBar';
 import IconText from '../../../components/common/IconText/IconText';
+import { ListSeparator, ListItem } from '../../../components/common/List';
 
 import { navigationBack } from '../../../Actions/Navigation';
+
 
 const fakelist = [
   {
@@ -45,7 +47,12 @@ class BookListScreen extends Component {
               iconName={'arrow-left'} 
               type={'feather'}               
               onPress={this.props.navigationBack}                     
-            />
+            />            
+          }
+          centerComponent={
+            <View style={{ height: 48, justifyContent: 'center', marginRight: 10 }}>
+            <Text >Lista de Livros</Text>
+            </View>
           }
         />        
         <View>
@@ -53,13 +60,14 @@ class BookListScreen extends Component {
           data={fakelist}
           keyExtractor={item => item.bookname}
           renderItem={({item}) => {            
-            return (<TouchableOpacity>
-              <View>
-                <Text>{item.bookname}</Text>
-              </View>
-            </TouchableOpacity>);
-          }            
+              return (
+              <ListItem 
+                book={item}
+              />
+            );
+            }            
           }
+          ItemSeparatorComponent={ListSeparator}
         />    
         </View>               
       </Container>           

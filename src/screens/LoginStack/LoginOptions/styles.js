@@ -8,10 +8,11 @@ const styles = EStyleSheet.create({
     backgroundColor: '#009b14',
     width: '100%',    
   },
-  buttonRegister: {
+  buttonVisitant: {
     marginTop: 30,
     backgroundColor: '#0d56a5',        
     width: '100%',
+    color: '#000000'
   }
 });
 
