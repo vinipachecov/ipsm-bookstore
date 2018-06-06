@@ -1,47 +1,133 @@
 import React, { Component } from 'react';
-import { Text, Image } from 'react-native';
+import { Text, Image, View, TextInput, FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'react-native-elements';
 import { Container } from '../../../components/common/Container';
-import { NavBar } from '../../../components/common/NavBar';
-import { Button } from 'react-native-elements';
+import { ListSeparator, BookCard } from '../../../components/common/List';
+import * as _ from 'lodash';
 
 import styles from './styles';
 
 import { navigateToScreen, navigationBack } from '../../../Actions/Navigation';
-import { IconText } from '../../../components/common/IconText';
-import Title from '../../../components/common/Title/Title';
 
-
+const fakelist = [
+  {
+    bookname: 'Ídolos do Coração',
+    SSID: '123456'    
+  },
+  {
+    bookname: 'Senhor dos Anéis',
+    SSID: '74256'    
+  },
+  {
+    bookname: 'Maravilhosas Doutrinas da Graça',
+    SSID: '132765'    
+  },
+  {
+    bookname: 'Cristianismo Puro e Simples',
+    SSID: '925761'    
+  },
+  {
+    bookname: 'Verdade Absoluta',
+    SSID: '153759'    
+  },
+  {
+    bookname: 'Cartas de um Diabo ao seu aprendiz',
+    SSID: '154653'    
+  },
+  {
+    bookname: 'Paixão pela Verdade',
+    SSID: '154653'    
+  },    
+  {
+    bookname: 'É possível confiar na Bíblia?',
+    SSID: '154653'    
+  }    
+];
 class HomeScreen extends Component {
 
-  goToBookList = () => {
-    this.props.navigateToScreen('bookList');
+
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      bookSearchList: [],
+      searchText: ''
+    };
   }
+
+  goToBookScreen = () => {
+    this.props.navigateToScreen('bookScreen');
+  }
+
+  componentWillMount() {
+    const array = this.createProductSearchList(fakelist);    
+    this.setState({ bookSearchList: array });    
+  }
+  
+  createProductSearchList = (bookList) => {  
+    const array = fakelist.map(item => {
+      return { name: item.bookname, SSID: item.SSID };
+    });    
+    return array;
+  };
+
+  getFilteredArray = (array) => {    
+    array = _.sortBy(this.state.bookSearchList, book => book.name);    
+    array = _.filter(array, (val) => {            
+      return val.name.startsWith(this.state.searchText);
+    });          
+    return array;          
+  };  
+
 
   render() {
     return (
-      <Container>        
-      <NavBar 
-          backgroundColor='white'     
-          headerLeft={
-              <IconText 
-                iconName={'arrow-left'} 
-                type={'feather'}               
-                onPress={this.props.navigationBack}                     
+      <Container>   
+
+      <View style={styles.headerSyle}>        
+          <Icon 
+            name={'menu'}
+            type={'feather'}               
+            onPress={this.props.navigationBack}       
+            size={20} 
+            containerStyle={{ marginRight: 10 }}           
+          />                     
+        <Icon 
+          name={'search'}
+          type={'evilicons'}
+          size={25} 
+          containerStyle={{ marginRight: 10 }}           
+        />        
+        <View style={{ width: '70%', height: 40 }}>
+          <TextInput 
+            style={{              
+              fontSize: 15,
+              backgroundColor: 'lightgray'              
+            }}            
+            onChangeText={ text => this.setState({ searchText: text})}        
+            placeholder={'Nome de um livro..'}
+          />
+        </View>
+      </View>  
+
+       <View 
+       style={styles.bookList}>
+        <FlatList 
+          data={this.getFilteredArray(fakelist)}
+          keyExtractor={item => item}
+          renderItem={({item}) => {            
+              return (
+              <BookCard 
+                book={item}    
+                onPress={this.goToBookScreen}            
               />
-          }                
-      />         
-
-      
-      <Title 
-          text={'Bem vindo de Volta!'}
-      />          
-      <Button           
-        title={'Lista de Livros'}  
-        buttonStyle={styles.booklistButton}
-        onPress={this.goToBookList}
-
-      />
+            );
+            }            
+          }
+          ItemSeparatorComponent={ListSeparator}
+        />    
+        </View>          
       </Container>      
     );
   }

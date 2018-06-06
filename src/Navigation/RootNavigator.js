@@ -7,11 +7,11 @@ import CreateAccountWithEmail from '../screens/LoginStack/CreateAccountWithEmail
 import LoginOptions from '../screens/LoginStack/LoginOptions';
 
 import HomeScreen from '../screens/HomeStack/HomeScreen';
-import BookList from '../screens/HomeStack/BookList';
+import BookScreen from '../screens/HomeStack/BookScreen';
 
 const HomeStack = StackNavigator({
     home: { screen: HomeScreen },
-    bookList: { screen: BookList }
+    bookScreen: { screen: BookScreen }
   },
   {
      headerMode: 'none'   
@@ -48,7 +48,7 @@ const AppNavigator = StackNavigator(
     homeStack: { screen: HomeStack }     
   },
   {
-    initialRouteName: 'loginStack',
+    initialRouteName: 'homeStack',
     headerMode: 'none'
   }
 );

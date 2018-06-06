@@ -11,6 +11,7 @@ const styles = EStyleSheet.create({
   ListItemContainer: {
     height: 30,
     width: '100%',    
+    paddingLeft: 30,
   }
 });
 

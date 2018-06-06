@@ -13,6 +13,7 @@ import AppNavigation, { reduxMiddleware } from './Navigation';
 EStyleSheet.build({    
   $white: '#fff',
   $border: '#e2e2e2',  
+  $verdePresbiteriano: '#0D5131'
   // $outline: 1
 });
 

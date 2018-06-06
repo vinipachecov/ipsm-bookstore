@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
-// import { Button } from 'react-native-elements';
-import { Button } from 'native-base';
+import { Button } from 'react-native-elements';
+//import { Button } from 'native-base';
 import Container from '../../../components/common/Container/Container';
 
 import styles from './styles';
 
 //actions
 import { navigateToScreen } from '../../../Actions/Navigation';
-import { Title } from '../../../components/common/Title/index';
 
 
 class LoginOptionsScreen extends Component {  
@@ -35,21 +34,18 @@ class LoginOptionsScreen extends Component {
           
         </View>        
         <View style={styles.container}>
-          {/* <Button 
+          <Button 
             title={'Entrar com Conta'}
             buttonStyle={styles.buttonLogin}            
             onPress={() => this.navigateTo('loginWithEmail')}
+            textStyle={ styles.textStyle}
           />
 
           <Button 
             title={'Entrar como Visitante'}            
             buttonStyle={styles.buttonVisitant}                        
-          /> */}
-
-          <Button 
-            color={'green'}
-          />
-          <Text onPress={() => this.navigateTo('createAccount')}>Fazer Cadastro</Text>  
+            textStyle={styles.textStyle}
+          />         
           </View>      
       </Container>  
     );
@@ -58,7 +54,7 @@ class LoginOptionsScreen extends Component {
 
 const mapStateToProps = (state) => ({
   
-})
+});
 
 const mapDispatchToProps = {
   navigateToScreen

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, Button, Text, TextInput } from 'react-native';
+import { View, KeyboardAvoidingView, Image, Text } from 'react-native';
+import { Button } from 'react-native-elements';
 import { TextField } from '../../../components/common/TextField';
 
-
+//actions
 import { navigationBack, navigateToScreen } from '../../../Actions/Navigation';
-
+// custom components
 import { Container } from '../../../components/common/Container';
-import { Title } from '../../../components/common/Title/index';
 import { SignInUser, clearErrorMessageOnType } from '../../../Actions/LoginActions';
 import { Spinner } from '../../../components/common/Spinner/index';
 import { ErrorBox } from '../../../components/common/ErrorBox/index';
 import { NavBar } from '../../../components/common/NavBar';
 import { IconText } from '../../../components/common/IconText';
 
+import styles from './styles';
 
 class LoginWithEmailScreen extends Component {
 
@@ -72,25 +73,25 @@ class LoginWithEmailScreen extends Component {
                 type={'feather'}               
                 onPress={this.props.navigationBack}                     
               />
-          }     
-          headerRight={
-              <IconText 
-                text='Esqueceu sua senha?'       
-                onPress={this.navigateToForgotPassword}                     
-              />
-            }         
+          }               
          />         
-         
-        <Title text='Livraria IPBSM' />  
 
-         <View style={{ marginTop: 40 }}>
+         <View style={{ alignItems: 'center' }}>
+         <Image 
+            source={require('../../../imagens/logoPresbiteriana.png')} 
+            style={{ height: 120, width: 120 }}
+            resizeMethod={'resize'}
+            resizeMode={'contain'}
+         />    
+         </View>         
+
+         <View style={{ marginTop: 10 }}>
           <TextField 
             value={this.state.email}
             onChangeText={this.onEmailChange}
             label={'EMAIL'}            
             keyboardType={'email-address'}            
           />     
-
             
           <TextField 
             value={this.state.password}
@@ -98,29 +99,26 @@ class LoginWithEmailScreen extends Component {
             label={'SENHA'}                         
             secureTextEntry
           />     
+          <Text 
+            style={styles.forgotPasswordText}
+            onPress={this.navigateToForgotPassword}
+          >
+            Esqueci Minha Senha
+          </Text>
           </View>            
          
             { this.renderSpinner(this.props.loading) }
             { this.renderErrorBox(this.props.error) }        
 
-            <View style={{ marginHorizontal: 20, marginTop: 30 }}>
+           
             <Button 
-              title={'Entrar'}            
-              color={'green'}   
-              onPress={this.SignIn}                 
+              title={'Entrar'}
+              backgroundColor={'#0D5131'}   
+              textStyle={styles.signInButtonText}
+              onPress={this.SignIn}   
+              containerViewStyle={styles.signInButtonContainer}        
             />   
-
-            <Text style={{fontSize: 25, color: 'gray', alignSelf: 'center', marginTop: 30 }}>Não possui Conta?             
-              <Text
-               style={{fontSize: 25, fontWeight: '800', color: 'gray', }}
-               onPress={this.navigateToRegisterUser}
-              >
-              Criar Conta 
-              </Text>
-             </Text>
-            
-            
-            </View>          
+           
           </KeyboardAvoidingView>
       </Container>  
       

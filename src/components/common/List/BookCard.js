@@ -3,15 +3,15 @@ import { View, Text, TouchableNativeFeedback } from 'react-native';
 
 import styles from './styles';
 
-const ListItem = ({ book, onPress }) => {
+const BookCard = ({ book, onPress }) => {
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View style={styles.ListItemContainer}>
-        <Text>{book.bookname}</Text>
+        <Text>{book.name}</Text>
       </View>
     </TouchableNativeFeedback>
     
   )
 };
 
-export default ListItem;
+export default BookCard;
