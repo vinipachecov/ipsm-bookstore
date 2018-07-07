@@ -1,49 +1,50 @@
 import React, { Component } from 'react';
-import { Text, Image, View, TextInput, FlatList } from 'react-native';
+import { View, TextInput, FlatList } from 'react-native';
+import * as _ from 'lodash';
 import { connect } from 'react-redux';
-import { Button, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { Container } from '../../../components/common/Container';
 import { ListSeparator, BookCard } from '../../../components/common/List';
-import * as _ from 'lodash';
+
 
 import styles from './styles';
 
 import { navigateToScreen, navigationBack } from '../../../Actions/Navigation';
 
-const fakelist = [
-  {
-    bookname: 'Ídolos do Coração',
-    SSID: '123456'    
-  },
-  {
-    bookname: 'Senhor dos Anéis',
-    SSID: '74256'    
-  },
-  {
-    bookname: 'Maravilhosas Doutrinas da Graça',
-    SSID: '132765'    
-  },
-  {
-    bookname: 'Cristianismo Puro e Simples',
-    SSID: '925761'    
-  },
-  {
-    bookname: 'Verdade Absoluta',
-    SSID: '153759'    
-  },
-  {
-    bookname: 'Cartas de um Diabo ao seu aprendiz',
-    SSID: '154653'    
-  },
-  {
-    bookname: 'Paixão pela Verdade',
-    SSID: '154653'    
-  },    
-  {
-    bookname: 'É possível confiar na Bíblia?',
-    SSID: '154653'    
-  }    
-];
+// const fakelist = [
+//   {
+//     bookname: 'Ídolos do Coração',
+//     SSID: '123456'    
+//   },
+//   {
+//     bookname: 'Senhor dos Anéis',
+//     SSID: '74256'    
+//   },
+//   {
+//     bookname: 'Maravilhosas Doutrinas da Graça',
+//     SSID: '132765'    
+//   },
+//   {
+//     bookname: 'Cristianismo Puro e Simples',
+//     SSID: '925761'    
+//   },
+//   {
+//     bookname: 'Verdade Absoluta',
+//     SSID: '153759'    
+//   },
+//   {
+//     bookname: 'Cartas de um Diabo ao seu aprendiz',
+//     SSID: '154653'    
+//   },
+//   {
+//     bookname: 'Paixão pela Verdade',
+//     SSID: '154653'    
+//   },    
+//   {
+//     bookname: 'É possível confiar na Bíblia?',
+//     SSID: '154653'    
+//   }    
+// ];
 class HomeScreen extends Component {
 
 
@@ -75,17 +76,17 @@ class HomeScreen extends Component {
     return array;
   };
 
-  getFilteredArray = (array) => {        
-    array = _.sortBy(this.state.bookSearchList, book => book.name);        
-    array = _.filter(array, (val) => {                  
+  getFilteredArray = (array) => {      
+    let aux = array;  
+    aux = _.sortBy(this.state.bookSearchList, book => book.name);        
+    aux = _.filter(array, (val) => {                  
       return val.name.startsWith(this.state.searchText);
     });          
-    return array;          
+    return aux;          
   };  
 
 
-  render() {
-    console.log(this);
+  render() {    
     const { bookList } = this.props;
     return (
       <Container>   
@@ -120,7 +121,7 @@ class HomeScreen extends Component {
        style={styles.bookList}>
         <FlatList 
           data={this.getFilteredArray(bookList)}
-          keyExtractor={item => item.bookname}
+          keyExtractor={item => item.name}
           renderItem={({item}) => {            
               return (
               <BookCard 

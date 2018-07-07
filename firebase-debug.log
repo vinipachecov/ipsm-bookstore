@@ -1,0 +1,101 @@
+[debug] [2018-07-06T22:40:28.153Z] ----------------------------------------------------------------------
+[debug] [2018-07-06T22:40:28.156Z] Command:       /home/vinicius/.nvm/versions/node/v9.2.0/bin/node /home/vinicius/.nvm/versions/node/v9.2.0/bin/firebase deploy
+[debug] [2018-07-06T22:40:28.157Z] CLI Version:   3.19.1
+[debug] [2018-07-06T22:40:28.157Z] Platform:      linux
+[debug] [2018-07-06T22:40:28.157Z] Node Version:  v9.2.0
+[debug] [2018-07-06T22:40:28.157Z] Time:          Fri Jul 06 2018 19:40:28 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:28.157Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-07-06T22:40:28.166Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-07-06T22:40:28.166Z] > authorizing via signed-in user
+[debug] [2018-07-06T22:40:28.169Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/church-library-1e9dc  
+  
+ Fri Jul 06 2018 19:40:28 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:29.366Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-06T22:40:29.368Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/church-library-1e9dc/tokens  
+  
+ Fri Jul 06 2018 19:40:29 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:30.130Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'church-library-1e9dc'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2018-07-06T22:40:34.955Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.12.1",
+    "firebase-functions": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-promise": "^3.6.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-07-06T22:40:34.956Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/church-library-1e9dc?view=CONSUMER_VIEW  
+  
+ Fri Jul 06 2018 19:40:34 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:34.957Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/church-library-1e9dc?view=CONSUMER_VIEW  
+  
+ Fri Jul 06 2018 19:40:34 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:36.249Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-06T22:40:36.412Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2018-07-06T22:40:36.417Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/church-library-1e9dc  
+  
+ Fri Jul 06 2018 19:40:36 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:37.357Z] <<< HTTP RESPONSE 200
+[debug] [2018-07-06T22:40:37.359Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/45539860131:getServerAppConfig  
+  
+ Fri Jul 06 2018 19:40:37 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:38.392Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-07-06T22:40:38.396Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/church-library-1e9dc/configs  
+  
+ Fri Jul 06 2018 19:40:38 GMT-0300 (-03)
+[debug] [2018-07-06T22:40:39.278Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (49.45 KB) for uploading
+[debug] [2018-07-06T22:40:39.490Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/church-library-1e9dc/locations/us-central1/functions:generateUploadUrl  
+  
+ Fri Jul 06 2018 19:40:39 GMT-0300 (-03)
+[debug] [2018-07-06T22:41:10.531Z] <<< HTTP RESPONSE 503
+[debug] [2018-07-06T22:41:10.531Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[debug] [2018-07-06T22:41:10.534Z] TypeError: Cannot create property 'error' on string '{
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+'
+    at module.exports (/home/vinicius/.nvm/versions/node/v9.2.0/lib/node_modules/firebase-tools/lib/responseToError.js:11:16)
+    at Request._callback (/home/vinicius/.nvm/versions/node/v9.2.0/lib/node_modules/firebase-tools/lib/api.js:47:25)
+    at Request.self.callback (/home/vinicius/.nvm/versions/node/v9.2.0/lib/node_modules/firebase-tools/node_modules/request/request.js:185:22)
+    at Request.emit (events.js:159:13)
+    at Request.<anonymous> (/home/vinicius/.nvm/versions/node/v9.2.0/lib/node_modules/firebase-tools/node_modules/request/request.js:1157:10)
+    at Request.emit (events.js:159:13)
+    at IncomingMessage.<anonymous> (/home/vinicius/.nvm/versions/node/v9.2.0/lib/node_modules/firebase-tools/node_modules/request/request.js:1079:12)
+    at Object.onceWrapper (events.js:254:19)
+    at IncomingMessage.emit (events.js:164:20)
+    at endReadableNT (_stream_readable.js:1054:12)
+[error] 
+[error] Error: An unexpected error has occurred.
