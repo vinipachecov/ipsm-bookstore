@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "genapk": "cd android && ./gradlew assembleRelease",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
+    "escape-string-regexp": "^1.0.5",
     "firebase": "^4.10.1",
     "lodash": "^4.17.10",
     "native-base": "^2.4.3",
@@ -20,8 +22,11 @@
     "react-navigation": "^1.1.2",
     "react-navigation-redux-helpers": "^1.0.1",
     "react-redux": "^5.0.7",
+    "react-text-mask-hoc": "^0.10.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "sort-by": "^1.2.0",
+    "text-mask-addons": "^3.7.2"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",

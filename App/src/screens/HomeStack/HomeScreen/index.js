@@ -1,52 +1,22 @@
 import React, { Component } from 'react';
 import { View, TextInput, FlatList } from 'react-native';
-import * as _ from 'lodash';
+
+// Sorting functions
+import escapeRegExp from 'escape-string-regexp';
+import sortBy from 'sort-by';
+
+
 import { connect } from 'react-redux';
+
+// Components
 import { Icon } from 'react-native-elements';
 import { Container } from '../../../components/common/Container';
 import { ListSeparator, BookCard } from '../../../components/common/List';
 
-
 import styles from './styles';
 
-import { navigateToScreen, navigationBack } from '../../../Actions/Navigation';
 
-// const fakelist = [
-//   {
-//     bookname: 'Ídolos do Coração',
-//     SSID: '123456'    
-//   },
-//   {
-//     bookname: 'Senhor dos Anéis',
-//     SSID: '74256'    
-//   },
-//   {
-//     bookname: 'Maravilhosas Doutrinas da Graça',
-//     SSID: '132765'    
-//   },
-//   {
-//     bookname: 'Cristianismo Puro e Simples',
-//     SSID: '925761'    
-//   },
-//   {
-//     bookname: 'Verdade Absoluta',
-//     SSID: '153759'    
-//   },
-//   {
-//     bookname: 'Cartas de um Diabo ao seu aprendiz',
-//     SSID: '154653'    
-//   },
-//   {
-//     bookname: 'Paixão pela Verdade',
-//     SSID: '154653'    
-//   },    
-//   {
-//     bookname: 'É possível confiar na Bíblia?',
-//     SSID: '154653'    
-//   }    
-// ];
 class HomeScreen extends Component {
-
 
   constructor(props) {
     super(props);
@@ -56,19 +26,24 @@ class HomeScreen extends Component {
       searchText: ''
     };
   }
-  componentDidMount = () => {
+ 
+  componentDidMount = () => {    
     const { bookList } = this.props;
-    const array = this.createProductSearchList(bookList);    
-    this.setState({ bookSearchList: array });    
-
+    const array = this.createProductSearchList(bookList);            
+    this.setState({ bookSearchList: array });      
   }
 
-  goToBookScreen = (book) => {
-    const { navigation } = this.props;
-    console.log(book);
-    navigation.navigate('bookScreen', { book });    
+  componentWillReceiveProps(props) {
+    console.log(props);
+    const { bookList } = props;
+    const array = this.createProductSearchList(bookList);            
+    this.setState({ bookSearchList: array });          
   }
-  
+ 
+  onChangeSearchText = (text) => {
+    this.setState({ searchText: text });
+  }
+
   createProductSearchList = (bookList) => {      
     const array = bookList.map(item => {
       return { ...item };
@@ -76,26 +51,31 @@ class HomeScreen extends Component {
     return array;
   };
 
-  getFilteredArray = (array) => {      
-    let aux = array;  
-    aux = _.sortBy(this.state.bookSearchList, book => book.name);        
-    aux = _.filter(array, (val) => {                  
-      return val.name.startsWith(this.state.searchText);
-    });          
-    return aux;          
-  };  
-
+  
+  goToBookScreen = (book) => {
+    const { navigation } = this.props;
+    console.log(book);
+    navigation.navigate('bookScreen', { book });    
+  }
 
   render() {    
-    const { bookList } = this.props;
+    const { searchText, bookSearchList } = this.state;    
+    let showingBooks;
+    if (searchText) {
+      const match = new RegExp(escapeRegExp(searchText), 'i');
+      showingBooks = bookSearchList.filter((book) => match.test(book.name));
+    } else {
+      showingBooks = bookSearchList;
+    }
+
+    showingBooks.sort(sortBy('name'));    
     return (
       <Container>   
 
       <View style={styles.headerSyle}>        
           <Icon 
             name={'menu'}
-            type={'feather'}               
-            onPress={this.props.navigationBack}       
+            type={'feather'}                           
             size={20} 
             containerStyle={{ marginRight: 10 }}           
           />                     
@@ -111,16 +91,16 @@ class HomeScreen extends Component {
               fontSize: 15,
               backgroundColor: 'lightgray'              
             }}            
-            onChangeText={ text => this.setState({ searchText: text})}        
+            onChangeText={text => this.onChangeSearchText(text)}        
             placeholder={'Nome de um livro..'}
           />
-        </View>
-      </View>  
+        </View>      
+      </View> 
 
        <View 
        style={styles.bookList}>
-        <FlatList 
-          data={this.getFilteredArray(bookList)}
+        <FlatList           
+          data={showingBooks}
           keyExtractor={item => item.name}
           renderItem={({item}) => {            
               return (
@@ -144,9 +124,7 @@ const mapStateToProps = (state) => ({
   bookList: state.bookData.bookList
 });
 
-const mapDispatchToProps = {
-  navigateToScreen,
-  navigationBack  
+const mapDispatchToProps = {  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

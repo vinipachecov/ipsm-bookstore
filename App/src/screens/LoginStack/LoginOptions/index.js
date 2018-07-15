@@ -2,19 +2,38 @@ import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
+import firebase from 'firebase';
+
 //import { Button } from 'native-base';
 import Container from '../../../components/common/Container/Container';
 
 import styles from './styles';
 
 //actions
+import { alreadySignedIn, signInAsGuest } from '../../../Actions/LoginActions';
 import { navigateToScreen } from '../../../Actions/Navigation';
 
 
 class LoginOptionsScreen extends Component {  
 
+  componentDidMount() {    
+    
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {            
+        console.log('usuario logado');                
+        this.props.alreadySignedIn(user);                              
+      } else {
+        firebase.auth().signOut();
+      }             
+    }); 
+  }
+
   navigateTo = (route) => {
     this.props.navigateToScreen(route);
+  }
+
+  guestSignIn = () => {
+    this.props.signInAsGuest();
   }
 
   render() {
@@ -30,7 +49,7 @@ class LoginOptionsScreen extends Component {
         </View>    
         <View style={{ alignItems: 'center'}}>
           <Text style={{ marginHorizontal: 20, fontSize: 25, color: '#000000', fontWeight: '200' }}>Bem Vindo a</Text>
-          <Text style={{ marginHorizontal: 10, fontSize: 25, color: '#000000', fontWeight: '200' }}>Livraria  da IPBSM</Text>
+          <Text style={{ marginHorizontal: 10, fontSize: 25, color: '#000000', fontWeight: '200' }}>Livraria  da IPSM</Text>
           
         </View>        
         <View style={styles.container}>
@@ -43,7 +62,8 @@ class LoginOptionsScreen extends Component {
 
           <Button 
             title={'Entrar como Visitante'}            
-            buttonStyle={styles.buttonVisitant}                        
+            buttonStyle={styles.buttonVisitant}      
+            onPress={this.guestSignIn}                  
             textStyle={{ color: '#000000'}}
           />         
           </View>      
@@ -57,8 +77,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  navigateToScreen
-  
+  navigateToScreen,
+  alreadySignedIn,
+  signInAsGuest  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginOptionsScreen);

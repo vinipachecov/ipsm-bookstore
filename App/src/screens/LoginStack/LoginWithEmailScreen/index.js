@@ -50,7 +50,7 @@ class LoginWithEmailScreen extends Component {
 
   renderSpinner = (loading) => {
     if (loading) {
-      return <Spinner />;    
+      return <View style={{ marginTop: 10 }}><Spinner /></View>;    
     }  
   }
 
@@ -124,8 +124,6 @@ class LoginWithEmailScreen extends Component {
            
            </KeyboardAvoidingView>                
       </Container>  
-
-      
     );
   }
 }

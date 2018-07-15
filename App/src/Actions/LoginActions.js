@@ -18,12 +18,7 @@ export const SignInUser = ({ email, password }) => {
   return async (dispatch) => {
     dispatch({ type: LOGIN_USER });
     try {
-      const user = await firebase.auth().signInWithEmailAndPassword(email, password);               
-      
-      signInUserSucess(dispatch, user);       
-      const bookList = await getBooks();  
-      dispatch({ type: SEND_BOOKS, payload: bookList });
-      dispatch(NavigationActions.navigate({ routeName: 'home' }));     
+      const user = await firebase.auth().signInWithEmailAndPassword(email, password);                     
     } catch (error) {      
       console.log(error.code);
       console.log(error);
@@ -32,6 +27,25 @@ export const SignInUser = ({ email, password }) => {
   };  
 };
   
+
+export const alreadySignedIn = (user) => {
+  return async dispatch => {
+    const bookList = await getBooks();  
+    signInUserSucess(dispatch, user);
+    dispatch({ type: SEND_BOOKS, payload: bookList });    
+    dispatch(NavigationActions.navigate({ routeName: 'home' }));     
+  }; 
+};
+
+export const signInAsGuest = () => {
+  return async dispatch => {
+    const bookList = await getBooks();  
+      dispatch({ type: SEND_BOOKS, payload: bookList });
+      dispatch(NavigationActions.navigate({ routeName: 'home' }));     
+  };
+};
+
+
 const signInUserSucess = (dispatch, user) => {
   dispatch({
     type: LOGIN_USER_SUCCESS, payload: user 
@@ -62,3 +76,5 @@ export const clearErrorMessageOnType = () => ({
   type: CLEAR_ERROR_ON_TYPE,
   payload: ''
 });
+
+

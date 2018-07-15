@@ -1,11 +1,8 @@
 const functions = require('firebase-functions');
 
-const XLSDataReceive = require('./XLSDataReceive');
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
-});
+const API = require('./API');
+const Loginfunc = require('./Login');
+// const FileUpload = require('./FileUpload');
 
-exports.XLSDataReceive = functions.https.onRequest(XLSDataReceive);
+exports.API = functions.https.onRequest(API);
+// exports.login = functions.https.onRequest(Loginfunc);

@@ -20,6 +20,7 @@ EStyleSheet.build({
 const middlewares = [ReduxThunk, reduxMiddleware];
 
 class App extends React.Component {
+  
   componentWillMount() {
      // Initialize Firebase
       const config = {
@@ -30,8 +31,9 @@ class App extends React.Component {
       storageBucket: configs.storageBucket,
       messagingSenderId: configs.messagingSenderId
     };
-    firebase.initializeApp(config);
-  }
+    firebase.initializeApp(config);   
+  }  
+  
   render() {     
     const store = createStore(reducers, {}, applyMiddleware(...middlewares));
     return (          
