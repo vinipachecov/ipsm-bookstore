@@ -12,15 +12,19 @@ import styles from './styles';
 //actions
 import { alreadySignedIn, signInAsGuest } from '../../../Actions/LoginActions';
 import { navigateToScreen } from '../../../Actions/Navigation';
+import { Spinner } from '../../../components/common/Spinner';
 
 
-class LoginOptionsScreen extends Component {  
+class LoginOptionsScreen extends Component { 
+  state = {
+    alreadyLoggedIn: false
+  } 
 
-  componentDidMount() {    
-    
+  componentDidMount() {        
     firebase.auth().onAuthStateChanged(user => {
       if (user) {            
-        console.log('usuario logado');                
+        console.log('usuario logado'); 
+        this.setState({ alreadyLoggedIn: true });
         this.props.alreadySignedIn(user);                              
       } else {
         firebase.auth().signOut();
@@ -34,6 +38,18 @@ class LoginOptionsScreen extends Component {
 
   guestSignIn = () => {
     this.props.signInAsGuest();
+  }
+
+  renderLoginMessage = () => {
+    const { alreadyLoggedIn } = this.state;
+    if (alreadyLoggedIn) {
+      return (
+        <View style={{ width: '100%', alignItems: 'center' }}>
+          <Text>Restaurando sessão anterior...</Text>
+          <Spinner />
+        </View>
+      );
+    }
   }
 
   render() {
@@ -67,6 +83,7 @@ class LoginOptionsScreen extends Component {
             textStyle={{ color: '#000000'}}
           />         
           </View>      
+          { this.renderLoginMessage()}
       </Container>  
     );
   };

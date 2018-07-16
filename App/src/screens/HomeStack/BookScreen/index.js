@@ -12,6 +12,7 @@ import { navigationBack } from '../../../Actions/Navigation';
 import { updateBook } from '../../../Actions/FirebaseActions';
 
 import styles from './styles';
+import { Spinner } from '../../../components/common/Spinner';
 
 const dollarMask = createNumberMask({
   prefix: 'R$ ',
@@ -39,9 +40,10 @@ class BookScreen extends Component {
 
     const { navigation } = this.props;
     const { book } = navigation.state.params;   
+    console.log('livro selecionado = ', book);    
     this.state = {
-      book,
-      price: parseFloat(book.unitPrice).toFixed(2).replace('.', ',') || '0,00',
+      book,      
+      price: book.price !== undefined && book.price !== null && book.price !== '' ? parseFloat(book.price.trim()) : 0.0,
       name: book.name,
       quantity: book.quantity      
     };
@@ -66,7 +68,7 @@ class BookScreen extends Component {
     let updatedBook = {
       name,
       quantity, 
-      price: price.trim().replace(',', '.'),
+      price: price.replace(',', '.').replace('R$', '').replace(' ', ''),
       author: book.author,      
     };
     await this.props.updateBook(updatedBook, book.id);    
@@ -87,9 +89,19 @@ class BookScreen extends Component {
     }
   }  
   
+  renderSpinner = (loading) => {
+    if (loading) {
+      return (
+        <View style={{ marginTop: 20 }}>
+          <Spinner />
+        </View>
+      );
+    }
+  }
+
   render() {    
-    const { book, name } = this.state;
-    const { user } = this.props;
+    const { book, name, price } = this.state;
+    const { user, loading } = this.props;
     console.log(book);
     return (
       <Container>        
@@ -188,7 +200,7 @@ class BookScreen extends Component {
                 user ? 
                 <TextMask
                   Component={TextInputAdapter}
-                  value={this.state.price}
+                  value={price}
                   mask={dollarMask}
                   onChange={this.onPriceChange}
                   style={{ paddingTop: 0, paddingBottom: 5 }}
@@ -197,11 +209,18 @@ class BookScreen extends Component {
                   autoCorrect={false}
                 />
               :
-                <Text>{book.unitPrice}</Text>
+                <Text>{                  
+                  book.price !== undefined && book.price !== null && book.price !== '' 
+                  ?
+                  book.price
+                  :
+                  'Valor a ser estabelecido!'
+                }</Text>
               }                            
             </View>            
           </View>  
-          {this.renderUpdateButton()}                
+          {this.renderUpdateButton()}        
+          {this.renderSpinner(loading)}        
         </View>              
       </Container>           
     );
@@ -209,7 +228,8 @@ class BookScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.loginEmail.user
+  user: state.loginEmail.user,
+  loading: state.forms.loading
 });
 
 const mapDispatchToProps = {

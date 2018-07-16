@@ -34,8 +34,10 @@ class HomeScreen extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log('vai receber novos props');
     console.log(props);
     const { bookList } = props;
+    console.log('nova lista = ', bookList);
     const array = this.createProductSearchList(bookList);            
     this.setState({ bookSearchList: array });          
   }

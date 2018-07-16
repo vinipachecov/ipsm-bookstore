@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { SEND_BOOKS } from './ActionTypes';
+import { SEND_BOOKS, FORM_SUBMIT, FORM_SUBMIT_FINISH } from './ActionTypes';
 
 export const getBooks = () => {  
   return new Promise(async resolve => {
@@ -16,7 +16,8 @@ export const getBooks = () => {
 
 export const updateBook = (book, id) => {
   return async dispatch => {
-    console.log('recebeu o livro atualizado ', book);
+    dispatch({ type: FORM_SUBMIT, payload: '' });
+    console.log('recebeu o livro atualizado ', book);    
     try {
       await firebase.database().ref(`/livros/${id}`).set(
         {
@@ -25,7 +26,9 @@ export const updateBook = (book, id) => {
       );
       const newBookList = await getBooks();
       dispatch({ type: SEND_BOOKS, payload: newBookList });
+      dispatch({ type: FORM_SUBMIT_FINISH, payload: '' });
     } catch (error) {
+      dispatch({ type: FORM_SUBMIT_FINISH, payload: '' });
       console.log(error);
     }    
   };

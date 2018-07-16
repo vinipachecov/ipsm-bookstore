@@ -21,7 +21,7 @@ class LoginWithEmailScreen extends Component {
   constructor(props) {
     super(props);
     
-    this.state = { email: 'lizzzdmc@gmail.com', password: '123456' };
+    this.state = { email: '', password: '' };
   } 
 
   onEmailChange = (text) => {          
