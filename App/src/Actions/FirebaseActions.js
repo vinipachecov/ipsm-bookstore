@@ -1,6 +1,11 @@
 import firebase from 'firebase';
 import { SEND_BOOKS, FORM_SUBMIT, FORM_SUBMIT_FINISH } from './ActionTypes';
 
+
+/**
+ * Send a request to firebase to get all books
+ * and return the list of books in an array
+ */
 export const getBooks = () => {  
   return new Promise(async resolve => {
 
@@ -13,7 +18,11 @@ export const getBooks = () => {
   });
 };
 
-
+/**
+ * Send book to firebase and update its data
+ * @param {*} book 
+ * @param {*} id 
+ */
 export const updateBook = (book, id) => {
   return async dispatch => {
     dispatch({ type: FORM_SUBMIT, payload: '' });

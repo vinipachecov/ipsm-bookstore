@@ -27,26 +27,31 @@ class HomeScreen extends Component {
     };
   }
  
+  /**
+   * Based on all data gathered create an array 
+   * using the original bookList so it can be modified 
+   */
   componentDidMount = () => {    
     const { bookList } = this.props;
     const array = this.createProductSearchList(bookList);            
     this.setState({ bookSearchList: array });      
   }
 
-  componentWillReceiveProps(props) {
-    console.log('vai receber novos props');
-    console.log(props);
-    const { bookList } = props;
-    console.log('nova lista = ', bookList);
+  componentWillReceiveProps(props) {    
+    const { bookList } = props;    
     const array = this.createProductSearchList(bookList);            
-    this.setState({ bookSearchList: array });          
+    this.setState({ bookSearchList: array });           
   }
  
   onChangeSearchText = (text) => {
     this.setState({ searchText: text });
   }
 
-  createProductSearchList = (bookList) => {      
+  /**
+   * change data aspects to be more intuitive to be used
+   * by other functions
+   */
+  createProductSearchList = (bookList) => {          
     const array = bookList.map(item => {
       return { ...item };
     });    

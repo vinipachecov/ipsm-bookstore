@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, TextInput} from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'native-base';
 import { TextMask, TextInputAdapter, TextAdapter } from 'react-text-mask-hoc/ReactNative';
@@ -14,6 +14,7 @@ import { updateBook } from '../../../Actions/FirebaseActions';
 import styles from './styles';
 import { Spinner } from '../../../components/common/Spinner';
 
+// currency mask
 const dollarMask = createNumberMask({
   prefix: 'R$ ',
   suffix: '',
@@ -24,6 +25,7 @@ const dollarMask = createNumberMask({
   decimalLimit: 2,
 });
 
+// quantity mask
 const decimalMask = createNumberMask({
   prefix: '',
   suffix: '',
@@ -39,16 +41,16 @@ class BookScreen extends Component {
     super(props);
 
     const { navigation } = this.props;
-    const { book } = navigation.state.params;   
-    console.log('livro selecionado = ', book);    
+    const { book } = navigation.state.params;         
     this.state = {
       book,      
-      price: book.price !== undefined && book.price !== null && book.price !== '' ? parseFloat(book.price.trim()) : 0.0,
+      price: book.unitPrice !== undefined && book.unitPrice !== null && book.unitPrice !== '' ? parseFloat(book.unitPrice.trim()) : 0.0,
       name: book.name,
       quantity: book.quantity      
     };
   }
 
+  // Screen data change functions
   onQuantityChange = (event) => {
     this.setState({ quantity: event.text });
   }
@@ -61,14 +63,36 @@ class BookScreen extends Component {
     this.setState({ name: text });
   }
 
-  
+  /**
+   * Render the price differently if the user is a guest or a signed user
+   */
+  onVisitorPriceRender = (price) => {
+    if (price !== undefined && price !== null && price !== '' && price !== 0 ) {
+      return (
+        <TextMask
+          Component={TextAdapter}
+          value={price}            
+          mask={dollarMask}                                    
+          guide                
+        />                  
+      );
+    }
+    return (
+      <Text>Valor a ser estabelecido!</Text>
+    );              
+  }
+
+  /**
+   * Gather the screen data and send it to redux to handle the async requests
+   * to update the book data on firebase
+   */
   sendUpdatedBookData = async () => {    
     const { name, quantity, price, book } = this.state;
     const { navigation } = this.props;
-    let updatedBook = {
+    const updatedBook = {
       name,
       quantity, 
-      price: price.replace(',', '.').replace('R$', '').replace(' ', ''),
+      unitPrice: price.replace(',', '.').replace('R$', '').replace(' ', ''),
       author: book.author,      
     };
     await this.props.updateBook(updatedBook, book.id);    
@@ -87,8 +111,9 @@ class BookScreen extends Component {
         </Button>
       );
     }
-  }  
+  }   
   
+  // Render the spinner the screen is uploading data
   renderSpinner = (loading) => {
     if (loading) {
       return (
@@ -101,8 +126,7 @@ class BookScreen extends Component {
 
   render() {    
     const { book, name, price } = this.state;
-    const { user, loading } = this.props;
-    console.log(book);
+    const { user, loading } = this.props;    
     return (
       <Container>        
         <NavBar 
@@ -209,13 +233,8 @@ class BookScreen extends Component {
                   autoCorrect={false}
                 />
               :
-                <Text>{                  
-                  book.price !== undefined && book.price !== null && book.price !== '' 
-                  ?
-                  book.price
-                  :
-                  'Valor a ser estabelecido!'
-                }</Text>
+              this.onVisitorPriceRender(price)
+                
               }                            
             </View>            
           </View>  

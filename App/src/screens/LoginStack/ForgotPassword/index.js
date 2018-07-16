@@ -22,24 +22,27 @@ class ForgotPassword extends Component {
     
     this.state = { email: '' };
   }
-
+  
   onEmailChange = (text) => {    
     this.setState({ email: text, error: '' });
-    } 
+  } 
 
+
+  // Send email to redux to handle requests for recovering email
   recoverPassword = () => {
     console.log(`recovering password with email ${this.state.email}`);
     const email = this.state.email;
     this.props.recoverPassword({ email });        
   }
 
-
+  // render spinner when doing tuff processing
   renderSpinner = (loading) => {
     if (loading) {
       return <Spinner />;
     }
   }
 
+  // Error messages rendering
   renderErrorBox(error) {
     if (error !== '') {
       return <ErrorBox errors={error} />;

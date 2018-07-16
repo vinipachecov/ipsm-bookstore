@@ -24,6 +24,7 @@ class LoginWithEmailScreen extends Component {
     this.state = { email: '', password: '' };
   } 
 
+  // Screen data functions
   onEmailChange = (text) => {          
     this.setState({ email: text });
   }
@@ -32,13 +33,19 @@ class LoginWithEmailScreen extends Component {
     this.setState({ password });
   }
 
-
+  /**
+   * attempts to sign in with the user credentials
+   * to firebase
+   */
+  
   SignIn = () => {         
     const { email, password } = this.state;    
     console.log('signing in... ');
 
     this.props.SignInUser({ email, password });    
   }  
+
+  //Navigation
 
   navigateToForgotPassword = () => {
     this.props.navigateToScreen('forgotPassword');
@@ -48,6 +55,7 @@ class LoginWithEmailScreen extends Component {
     this.props.navigateToScreen('createAccount');
   }
 
+  // Loading and error handling
   renderSpinner = (loading) => {
     if (loading) {
       return <View style={{ marginTop: 10 }}><Spinner /></View>;    

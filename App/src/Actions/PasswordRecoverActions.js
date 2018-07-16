@@ -12,9 +12,11 @@ import {
 import Errors from '../Messages/Errors.json';
 import Success from '../Messages/Success.json';
 
-export const recoverPassword = ({ email }) => {  
-  console.log(`Reseting user Password with ${email}`);
 
+/**
+ * Send recover request to firebase and wait for user action on his email.
+ */
+export const recoverPassword = ({ email }) => {  
   return async (dispatch) => {
     dispatch({ type: RESET_PASSWORD });
     try {
@@ -27,6 +29,7 @@ export const recoverPassword = ({ email }) => {
     }
   };
 };
+
 
 const resetEmailSucess = (dispatch, email) => {     
   dispatch({ type: RESET_EMAIL_SUCCESS, payload: Success['reset-email-sent'] + email });

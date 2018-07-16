@@ -20,34 +20,47 @@ class LoginOptionsScreen extends Component {
     alreadyLoggedIn: false
   } 
 
-  componentDidMount() {        
+  componentDidMount() {            
+    // Check if user is signed in and 
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {            
-        console.log('usuario logado'); 
+      if (user) {                    
         this.setState({ alreadyLoggedIn: true });
         this.props.alreadySignedIn(user);                              
       } else {
+        // force logout to avoid bugs
         firebase.auth().signOut();
       }             
     }); 
   }
-
+  
   navigateTo = (route) => {
     this.props.navigateToScreen(route);
   }
 
-  guestSignIn = () => {
+  // Use login action to login as a Guest (cannot modify data)
+  guestSignIn = () => {    
     this.props.signInAsGuest();
   }
 
+  /**
+   * Based on previous login or guest login, render a standard message to the user
+   */
   renderLoginMessage = () => {
     const { alreadyLoggedIn } = this.state;
+    const { loading } = this.props;
     if (alreadyLoggedIn) {
       return (
         <View style={{ width: '100%', alignItems: 'center' }}>
           <Text>Restaurando sessão anterior...</Text>
           <Spinner />
         </View>
+      );
+    }
+    if (loading) {
+      return (
+        <View style={{ marginTop: 20 }}>
+          <Spinner />
+        </View>        
       );
     }
   }
@@ -90,7 +103,7 @@ class LoginOptionsScreen extends Component {
 };
 
 const mapStateToProps = (state) => ({
-  
+  loading: state.loginEmail.loading  
 });
 
 const mapDispatchToProps = {

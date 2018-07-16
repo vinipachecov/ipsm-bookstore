@@ -33,6 +33,10 @@ class CreateAccountWithEmail extends Component {
     this.inputs[ref] = input;    
   }
 
+  /**
+   * Gather screen data and send it to redux function 
+   * to handle user register requests
+   */
   registerNewUser = () => {
     const { email, password, passwordConfirm } = this.props;       
     this.props.registerUser(email, password, passwordConfirm);
@@ -55,8 +59,7 @@ class CreateAccountWithEmail extends Component {
     }
   }
 
-  render() {           
-    // TEMPORÁRIO ATÉ SURGIR A TELA DE LOGIN    
+  render() {                 
     return (      
       <Container>     
         <KeyboardAwareScrollView 
@@ -82,8 +85,7 @@ class CreateAccountWithEmail extends Component {
           label={'Email'}
           onChangeText={this.props.onEmailChange}            
           returnKeyType="next"
-          onSubmitEditing={() => {
-            // specify the key of the ref, as done in the previous section.
+          onSubmitEditing={() => {            
             this.focusNextField('password');
           }}          
           blurOnSubmit={false}
@@ -96,8 +98,7 @@ class CreateAccountWithEmail extends Component {
           label={'Senha'}        
           onChangeText={this.props.onPasswordChange}  
           returnKeyType="next"   
-          onSubmitEditing={() => {
-            // specify the key of the ref, as done in the previous section.
+          onSubmitEditing={() => {            
             this.focusNextField('passwordConfirm');
           }}       
           secureTextEntry          
